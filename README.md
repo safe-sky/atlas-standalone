@@ -48,7 +48,7 @@ To edit this user or add different users, please use the management portal
 which is accessible via `http://localhost:9999/admin/master/console/#/dev`
 using the credentials `user: "admin" password "admin"` (this url leads to the
 `dev`-realm directly, if you use a separate route make sure to select the
-`dev`-realm when chaning or adding users).
+`dev`-realm when changing or adding users).
 
 ## Adding users
 
