@@ -1,0 +1,56 @@
+services:
+  # Postgres (database)
+  postgres-dev:
+    image: postgres:latest
+    container_name: postgres-demo
+    ports:
+      - 5432:5432/tcp
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    healthcheck: # Enables condition-based delayed starting of the Keycloak and Atlas containers.
+      test: ["CMD-SHELL", "sh -c 'pg_isready -U ${POSTGRES_USER}'"]
+      start_period: 3s
+      interval: 3s
+      timeout: 10s
+    restart: always
+
+  # Keycloak (Identity Provider)
+  keycloak-dev:
+    image: quay.io/keycloak/keycloak:latest
+    container_name: keycloak-demo
+    volumes:
+      - ./keycloak-import:/opt/keycloak/data/import # Contains a preconfigured realm which will be imported
+    ports:
+      - 9999:8080/tcp
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_HEALTH_ENABLED: true
+    command:
+      - start-dev
+      - --import-realm # Import the dev realm
+    depends_on:
+      postgres-dev:
+        condition: service_healthy # Wait for Postgres to start and accept connections
+    restart: always
+
+  # Atlas
+  atlas-dev:
+    image: safe-sky.io/atlas:latest
+    container_name: atlas-demo
+    volumes:
+      - ./atlas-import:/etc/atlas # Contains the license and aerodrome data
+    ports:
+      - 8080:3842/tcp # Web UI
+      - 3840:3480/tcp
+      - 3842:3842/tcp
+    env_file:
+      - ./env/atlas.env # Contains all the required variables
+    depends_on:
+      postgres-dev:
+        condition: service_healthy # Wait for Postgres to start and accept connections
+    command: 
+      - --create-admin-token
+      - --serve-statics
+    restart: unless-stopped
