@@ -17,9 +17,9 @@ can be used for everything except for `HOST_IP` in `./env/network.env`. This
 value should be set to the address on which the containers will be reachable,
 including inter-container traffic (avoid using `localhost` and `127.0.0.1` here).
 
-## Starting Atlas
+## Setup Atlas-environment
 
-Use a shell to execute `atlas.sh`. If everything went well, the following output
+Use a shell to execute `setup-atlas.sh`. If everything went well, the following output
 is expected:
 ```bash
 [+] Running 4/4
@@ -62,11 +62,10 @@ Press `Add User` and fill in the username and an email address. After pressing
     - `atlasSystemAdmin: true`
 - In the `Credentials`-panel, set a password for the user
 
-## Stopping Atlas
+## Starting/stopping Atlas
 
-Use the same script as the script you used to start it with, but supply `down`
-as argument. This leads to: `./atlas.sh down` or `bash atlas.sh down`.
+Use `./atlas.sh start` to restart the environment and `./atlas.sh stop` to stop
+it.
 
-## Data volatility
-
-The used data is volatile and will be reset to the defaults for the demo when the environment is being turned off and on again.
+If you do **not** wish to keep the existing containers, use `./atlas-setup down`
+to delete the created containers.
