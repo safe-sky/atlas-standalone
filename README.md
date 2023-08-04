@@ -3,6 +3,27 @@
 This repository contains a script and supporting files to easily get an Atlas
 instance up and running for testing and demo purposes.
 
+## Disclaimer
+
+:warning: **This setup is for proof of concept testing and demonstration only** :warning:
+
+This is the minimal possible setup to get an Atlas instance running and
+usable via the web interface on localhost. A production setup requires more
+infrastructure and planning, to ensure high availability and redundant data
+storage. This demo setup is usable via the Atlas **web interface only** on
+localhost, and **cannot be used with the mobile app** due to lack of correct
+certificates, host names, etc.
+
+Several features and integrations are not configured and will not work in
+this minimal demo setup:
+
+  - Email sending (requires configuring an SMTP server)
+  - SMS and Fax sending (requires configuring a provider)
+  - User management in Atlas (here handled by Keycloak, as an external OIDC
+    provider)
+  - High availability and clustering (Atlas runs in a single instance, with
+    a single database instance)
+
 ## Prerequisites
 
 The docker parts are wrapped in a compose file, aiming to make it as simple as
