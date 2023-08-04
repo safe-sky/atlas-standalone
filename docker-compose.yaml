@@ -2,6 +2,8 @@ services:
   # Postgres (database)
   postgres:
     image: docker.io/postgres:latest
+    volumes:
+      - ./data/postgres:/docker-entrypoint-initdb.d # SQL files to import on build
     env_file:
       - ./env/postgres.env
     healthcheck:
@@ -17,7 +19,7 @@ services:
       context: .
       dockerfile: Dockerfile.keycloak
     volumes:
-      - ./keycloak-import:/opt/keycloak/data/import # Contains a preconfigured realm which will be imported
+      - ./data/keycloak:/opt/keycloak/data/import # Contains a preconfigured realm which will be imported
     ports:
       - 9999:8080/tcp
     env_file:
@@ -40,7 +42,7 @@ services:
     image: safe-sky.io/atlas:edge
     pull_policy: always
     volumes:
-      - ./atlas-import:/etc/atlas # Contains the license and aerodrome data
+      - ./data/atlas:/etc/atlas # Contains the license and aerodrome data
     ports:
       - 8080:3842/tcp # Web UI
       - 3840:3480/tcp # gRPC API
@@ -54,7 +56,6 @@ services:
       keycloak:
         condition: service_healthy
     command:
-      - --create-admin-token
       - --serve-statics
     healthcheck:
       test: ["CMD", "/bin/atlascmd", "system", "health"]

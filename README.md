@@ -51,17 +51,7 @@ everything went well, something similar to the following output is expected:
  ✔ Container atlas-standalone-atlas-1     Healthy
  ```
 
-Then, a separate script must be run to create a demo aerodrome in Atlas. Run it
-when the containers have started as above:
-
-```bash
-% ./setup-atlas.sh
-```
-
-This only needs to be done once. The output is a blob of JSON. This is
-expected.
-
-When everything is running, Atlas is going to be reachable via a web-browser on
+When everything is running, Atlas is reachable via a web-browser on
 `http://localhost:8080`.
 
 ## Authentication
@@ -69,6 +59,7 @@ When everything is running, Atlas is going to be reachable via a web-browser on
 The default authentication provider for this stand-alone setup is Keycloak.
 A preconfigured realm is imported automatically which includes one demo
 user. This user can be used to login to Atlas:
+
     - Username: `user@example.com`
     - Password: `ExamplePassword`
 
