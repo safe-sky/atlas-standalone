@@ -1,7 +1,7 @@
 services:
   # Postgres (database)
   postgres:
-    image: docker.io/postgres:latest
+    image: docker.io/postgres:15
     volumes:
       - ./data/postgres:/docker-entrypoint-initdb.d # SQL files to import on build
     env_file:
@@ -32,20 +32,19 @@ services:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "/usr/bin/curl", "--head", "-fsS", "http://localhost:8080/health/ready"]
-      start_period: 15s
+      start_period: 5s
       interval: 5s
       timeout: 240s
     restart: always
 
   # Atlas
   atlas:
-    image: safe-sky.io/atlas:edge
+    image: safe-sky.io/atlas:latest
     pull_policy: always
     volumes:
       - ./data/atlas:/etc/atlas # Contains the license and aerodrome data
     ports:
       - 8080:3842/tcp # Web UI
-      - 3840:3480/tcp # gRPC API
       - 3842:3842/tcp # REST API
     env_file:
       - ./env/postgres.env
@@ -59,7 +58,7 @@ services:
       - --serve-statics
     healthcheck:
       test: ["CMD", "/bin/atlascmd", "system", "health"]
-      start_period: 2s
+      start_period: 5s
       interval: 5s
-      timeout: 60s
+      timeout: 30s
     restart: unless-stopped
