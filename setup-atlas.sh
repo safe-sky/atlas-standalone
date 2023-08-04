@@ -1,4 +1,4 @@
-export TOKEN=$(docker-compose logs atlas | grep 'Admin token active' | sed -e 's/.*token=\(.*\) expires.*/\1/')
+export TOKEN=$(docker-compose logs atlas | grep 'Admin token active' | tail -1 | sed -e 's/.*token=\(.*\) expires.*/\1/')
 
 docker-compose exec atlas atlascmd \
     --atlas-token="$TOKEN" --atlas-host="localhost:3840" \

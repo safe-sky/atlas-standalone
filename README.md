@@ -41,11 +41,6 @@ when the containers have started as above:
 
 The output is a blob of JSON. This is expected.
 
-It may take a short while for Keycloak to configure itself before it ready
-to serve requests. Please check whether `http://localhost:9999` is reachable
-before attempting to login to Atlas. Atlas will show an error if Keycloak is
-still loading.
-
 When everything is running, Atlas is going to be reachable via a web-browser on
 `http://localhost:8080`.
 
@@ -74,3 +69,9 @@ Press `Add User` and fill in the username and an email address. After pressing
     - `atlasPermissions: DEMO@EU-ADM`
     - `atlasSystemAdmin: true`
 - In the `Credentials`-panel, set a password for the user
+
+## Starting and stopping
+
+The setup can be stopped with data retained by `docker-compose stop`, and
+similarly started again with `docker-compose start`. To destroy the setup,
+use `docker-compose down`.
