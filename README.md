@@ -17,29 +17,28 @@ should be usable as-is for a demo setup.
 
 ## Setup Atlas-environment
 
-Build and start the containers by running `docker-compose up -d`. If
-everything went well, the following output is expected:
+Build and start the containers by running `docker-compose up -d --wait`. If
+everything went well, something similar to the following output is expected:
 
 ```bash
-% docker-compose up -d
-[+] Running 1/1
- ✔ atlas Pulled                                                                                                                                                            0.5s
-[+] Building 0.0s (0/0)
+% docker-compose up -d --wait
+...
 [+] Running 4/4
  ✔ Network atlas-standalone_default       Created
  ✔ Container atlas-standalone-postgres-1  Healthy
- ✔ Container atlas-standalone-keycloak-1  Started
- ✔ Container atlas-standalone-atlas-1     Started
+ ✔ Container atlas-standalone-keycloak-1  Healthy
+ ✔ Container atlas-standalone-atlas-1     Healthy
  ```
 
-A separate script must be run to create a demo aerodrome in Atlas. Run it
+Then, a separate script must be run to create a demo aerodrome in Atlas. Run it
 when the containers have started as above:
 
 ```bash
 % ./setup-atlas.sh
 ```
 
-The output is a blob of JSON. This is expected.
+This only needs to be done once. The output is a blob of JSON. This is
+expected.
 
 When everything is running, Atlas is going to be reachable via a web-browser on
 `http://localhost:8080`.
