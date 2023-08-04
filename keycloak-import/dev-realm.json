@@ -383,7 +383,7 @@
     "lastName" : "Example",
     "email" : "user@example.com",
     "attributes" : {
-      "atlasPermissions" : [ "ZZZZ@EU-ADM" ],
+      "atlasPermissions" : [ "DEMO@EU-ADM" ],
       "atlasSystemAdmin" : [ "true" ]
     },
     "credentials" : [ {

@@ -7,46 +7,59 @@ instance up and running for testing and demo purposes.
 
 The docker parts are wrapped in a compose file, aiming to make it as simple as
 possible to get an environment up and running. This includes an Identity
-Profider (Keycloak). To be able to run this, Docker needs to be installed with
+Provider (Keycloak). To be able to run this, Docker needs to be installed with
 Docker Compose support.
 
 ## Variables
 
 Pre-set (required) variables are stored in the `env` folder. The defaults
-can be used for everything except for `HOST_IP` in `./env/network.env`. This
-value should be set to the address on which the containers will be reachable,
-including inter-container traffic (avoid using `localhost` and `127.0.0.1` here).
+should be usable as-is for a demo setup.
 
 ## Setup Atlas-environment
 
-Use a shell to execute `setup-atlas.sh`. If everything went well, the following output
-is expected:
+Build and start the containers by running `docker-compose up -d`. If
+everything went well, the following output is expected:
+
 ```bash
+% docker-compose up -d
+[+] Running 1/1
+ ✔ atlas Pulled                                                                                                                                                            0.5s
+[+] Building 0.0s (0/0)
 [+] Running 4/4
- ✔ Network atlas-standalone_default  Created                                                                                
- ✔ Container postgres-demo           Healthy                                                                                
- ✔ Container atlas-demo              Started                                                                                
- ✔ Container keycloak-demo           Started   
+ ✔ Network atlas-standalone_default       Created
+ ✔ Container atlas-standalone-postgres-1  Healthy
+ ✔ Container atlas-standalone-keycloak-1  Started
+ ✔ Container atlas-standalone-atlas-1     Started
+ ```
+
+A separate script must be run to create a demo aerodrome in Atlas. Run it
+when the containers have started as above:
+
+```bash
+% ./setup-atlas.sh
 ```
 
-It may take a short while for Keycloak to configure itself. Please check whether
-`http://localhost:9999` is reachable before attempting to login to Atlas. Atlas
-will show an error if Keycloak is still loading. This process shouldn't take
-more than 10-15 seconds after starting up the demo-environment.
+The output is a blob of JSON. This is expected.
+
+It may take a short while for Keycloak to configure itself before it ready
+to serve requests. Please check whether `http://localhost:9999` is reachable
+before attempting to login to Atlas. Atlas will show an error if Keycloak is
+still loading.
 
 When everything is running, Atlas is going to be reachable via a web-browser on
 `http://localhost:8080`.
 
 ## Authentication
 
-The defaultly used authentication provider for this stand-alone setup is
-Keycloak. A preconfigured realm is imported automatically which includes one
-test-user. This user can be used to login to Atlas with (user: `user@example.com` pass:
-`ExamplePassword`).
+The default authentication provider for this stand-alone setup is Keycloak.
+A preconfigured realm is imported automatically which includes one demo
+user. This user can be used to login to Atlas:
+    - Username: `user@example.com`
+    - Password: `ExamplePassword`
 
 To edit this user or add different users, please use the management portal
 which is accessible via `http://localhost:9999/admin/master/console/#/dev`
-using the credentials `user: "admin" password "admin"` (this url leads to the
+using the user `admin` with password  `admin` (this URL leads to the
 `dev`-realm directly, if you use a separate route make sure to select the
 `dev`-realm when changing or adding users).
 
@@ -58,14 +71,6 @@ to the Users menu (via the hamburger-menu on the left-upper side).
 Press `Add User` and fill in the username and an email address. After pressing
 `Create` make sure to set the following information:
 - In the `Attributes`-panel, add two attributes to the user
-    - `atlasPermissions: ZZZZ@EU-ADM`
+    - `atlasPermissions: DEMO@EU-ADM`
     - `atlasSystemAdmin: true`
 - In the `Credentials`-panel, set a password for the user
-
-## Starting/stopping Atlas
-
-Use `./atlas.sh start` to restart the environment and `./atlas.sh stop` to stop
-it.
-
-If you do **not** wish to keep the existing containers, use `./atlas-setup down`
-to delete the created containers.
