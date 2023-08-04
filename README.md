@@ -27,10 +27,14 @@ this minimal demo setup:
 
 ## Prerequisites
 
-The Docker parts are wrapped in a compose file, making it as simple as
-possible to get an environment up and running. This includes an identity
-provider (Keycloak). To be able to run this, Docker needs to be installed
-with Docker Compose support.
+1. A license file. You need to get a valid license file from Safe Sky, and
+   then place it as `data/atlas/license.pem` in this directory. Contact
+   `support@safe-sky.net`.
+
+2. Docker & Docker Compose. The Docker parts are wrapped in a compose file,
+   making it as simple as possible to get an environment up and running.
+   This includes an identity provider (Keycloak). To be able to run this,
+   Docker need s to be installed with Docker Compose support.
 
 ## Variables
 

@@ -39,7 +39,7 @@ services:
 
   # Atlas
   atlas:
-    image: safe-sky.io/atlas:latest
+    image: safe-sky.io/atlas:edge
     pull_policy: always
     volumes:
       - ./data/atlas:/etc/atlas # Contains the license and aerodrome data
