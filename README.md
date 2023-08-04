@@ -1,7 +1,8 @@
 # Atlas stand-alone environment (test/demo)
 
-This repository contains a script and supporting files to easily get an Atlas
-instance up and running for testing and demo purposes.
+This repository contains Docker Compose configuration and supporting files
+to easily get an Atlas instance up and running for testing and demo
+purposes.
 
 ## Disclaimer
 
@@ -26,10 +27,10 @@ this minimal demo setup:
 
 ## Prerequisites
 
-The docker parts are wrapped in a compose file, aiming to make it as simple as
-possible to get an environment up and running. This includes an Identity
-Provider (Keycloak). To be able to run this, Docker needs to be installed with
-Docker Compose support.
+The Docker parts are wrapped in a compose file, making it as simple as
+possible to get an environment up and running. This includes an identity
+provider (Keycloak). To be able to run this, Docker needs to be installed
+with Docker Compose support.
 
 ## Variables
 
@@ -60,8 +61,8 @@ The default authentication provider for this stand-alone setup is Keycloak.
 A preconfigured realm is imported automatically which includes one demo
 user. This user can be used to login to Atlas:
 
-    - Username: `user@example.com`
-    - Password: `ExamplePassword`
+- Username: `user@example.com`
+- Password: `ExamplePassword`
 
 To edit this user or add different users, please use the management portal
 which is accessible via `http://localhost:9999/admin/master/console/#/dev`
@@ -76,10 +77,11 @@ to the Users menu (via the hamburger-menu on the left-upper side).
 
 Press `Add User` and fill in the username and an email address. After pressing
 `Create` make sure to set the following information:
-- In the `Attributes`-panel, add two attributes to the user
+
+- In the `Attributes` panel, add two attributes to the user
     - `atlasPermissions: DEMO@EU-ADM`
     - `atlasSystemAdmin: true`
-- In the `Credentials`-panel, set a password for the user
+- In the `Credentials` panel, set a password for the user
 
 ## Starting and stopping
 
