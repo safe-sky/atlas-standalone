@@ -2,7 +2,11 @@
 
 This repository contains Docker Compose configuration and supporting files
 to easily get an Atlas instance up and running for testing and demo
-purposes.
+purposes. Three containers are creates as part of the setup:
+
+- Atlas
+- PostgreSQL (database)
+- Keycloak (identity provider)
 
 ## Disclaimer
 
@@ -27,8 +31,9 @@ this minimal demo setup:
 
 ## Prerequisites
 
-1. A license file. You need to get a valid license file from Safe Sky, and
-   then place it as `data/atlas/license.pem` in this directory. Contact
+1. A license file. A demo license is included; for any other usage you need
+   to get a valid license file from Safe Sky, and then place it as
+   `data/atlas/license.pem` in this directory. Contact
    `support@safe-sky.net`.
 
 2. Docker & Docker Compose. The Docker parts are wrapped in a compose file,
